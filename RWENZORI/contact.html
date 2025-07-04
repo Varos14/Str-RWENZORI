@@ -1,0 +1,302 @@
+<!-- Partnership Contact Section -->
+<section class="partner-contact">
+    <div class="container">
+        <div class="partner-contact-container">
+            <div class="partner-contact-info">
+                <h2>Join Our Conservation Partnership Network</h2>
+                <p class="subtitle">Together we can achieve more for the Rwenzori Mountains and Bundibugyo communities</p>
+                
+                <div class="contact-details">
+                    <div class="contact-method">
+                        <i class="fas fa-envelope-open-text"></i>
+                        <div>
+                            <h4>Email Our Team</h4>
+                            <a href="mailto:partnerships@savetherwenzori.org">partnerships@savetherwenzori.org</a>
+                            <p>Response within 2 business days</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <i class="fas fa-phone-alt"></i>
+                        <div>
+                            <h4>Call Our Office</h4>
+                            <a href="tel:+256772676944">+256 772 676 944</a>
+                            <p>Monday-Friday, 9am-5pm EAT</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Visit Us</h4>
+                            <p>Kisenyi Road, Bundibugyo Town</p>
+                            <p>By appointment only</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="partnership-types">
+                    <h4>We Welcome Partnerships With:</h4>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Local community groups</li>
+                        <li><i class="fas fa-check-circle"></i> Government agencies</li>
+                        <li><i class="fas fa-check-circle"></i> Research institutions</li>
+                        <li><i class="fas fa-check-circle"></i> Responsible businesses</li>
+                        <li><i class="fas fa-check-circle"></i> Tourism operators</li>
+                        <li><i class="fas fa-check-circle"></i> International NGOs</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="partner-contact-form">
+                <h3>Start the Conversation</h3>
+                <form id="partnershipForm">
+                    <div class="form-group">
+                        <label for="organization">Organization Name*</label>
+                        <input type="text" id="organization" name="organization" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contact-person">Contact Person*</label>
+                        <input type="text" id="contact-person" name="contact-person" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address*</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="interest">Area of Partnership Interest*</label>
+                        <select id="interest" name="interest" required>
+                            <option value="">Select an option</option>
+                            <option value="conservation">Conservation Programs</option>
+                            <option value="research">Research Collaboration</option>
+                            <option value="education">Environmental Education</option>
+                            <option value="tourism">Sustainable Tourism</option>
+                            <option value="funding">Funding/Sponsorship</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Tell Us About Your Organization*</label>
+                        <textarea id="message" name="message" rows="4" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i> Submit Partnership Request
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Partnership Contact Section */
+    .partner-contact {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+        color: var(--white);
+        padding: 80px 0;
+    }
+    
+    .partner-contact-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    .partner-contact-info h2 {
+        font-size: 2.2rem;
+        margin-bottom: 15px;
+    }
+    
+    .subtitle {
+        font-size: 1.1rem;
+        margin-bottom: 30px;
+        opacity: 0.9;
+    }
+    
+    .contact-details {
+        margin: 40px 0;
+    }
+    
+    .contact-method {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 25px;
+        align-items: flex-start;
+    }
+    
+    .contact-method i {
+        font-size: 1.5rem;
+        color: var(--accent);
+        margin-top: 5px;
+    }
+    
+    .contact-method h4 {
+        margin: 0 0 5px;
+        font-size: 1.1rem;
+    }
+    
+    .contact-method a {
+        color: var(--white);
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s;
+    }
+    
+    .contact-method a:hover {
+        color: var(--accent);
+    }
+    
+    .contact-method p {
+        margin: 5px 0 0;
+        font-size: 0.9rem;
+        opacity: 0.8;
+    }
+    
+    .partnership-types {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 25px;
+        border-radius: 8px;
+    }
+    
+    .partnership-types h4 {
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    
+    .partnership-types ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+    
+    .partnership-types li {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.95rem;
+    }
+    
+    .partnership-types i {
+        color: var(--accent);
+    }
+    
+    .partner-contact-form {
+        background: var(--white);
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    }
+    
+    .partner-contact-form h3 {
+        color: var(--primary);
+        margin-top: 0;
+        margin-bottom: 25px;
+        font-size: 1.5rem;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: var(--text);
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-family: 'Open Sans', sans-serif;
+        transition: border-color 0.3s;
+    }
+    
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+        border-color: var(--secondary);
+        outline: none;
+    }
+    
+    button[type="submit"] {
+        width: 100%;
+        padding: 15px;
+        font-size: 1rem;
+    }
+    
+    button[type="submit"] i {
+        margin-right: 8px;
+    }
+    
+    @media (max-width: 768px) {
+        .partner-contact-container {
+            grid-template-columns: 1fr;
+        }
+        
+        .partnership-types ul {
+            grid-template-columns: 1fr;
+        }
+        
+        .partner-contact-form {
+            padding: 30px 20px;
+        }
+    }
+</style>
+
+<script>
+    document.getElementById('partnershipForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Form validation
+        const form = e.target;
+        const formData = new FormData(form);
+        const formValid = Array.from(form.elements).every(element => {
+            if (element.required && !element.value.trim()) {
+                element.style.borderColor = '#ff4444';
+                return false;
+            }
+            return true;
+        });
+        
+        if (formValid) {
+            // Here you would typically send the form data to your server
+            // For demonstration, we'll show a success message
+            alert('Thank you for your partnership request! Our team will contact you within 2 business days.');
+            form.reset();
+            
+            // Reset any error styling
+            Array.from(form.elements).forEach(element => {
+                element.style.borderColor = '#ddd';
+            });
+        } else {
+            alert('Please fill in all required fields.');
+        }
+    });
+    
+    // Reset error styling when user starts typing
+    document.querySelectorAll('#partnershipForm input, #partnershipForm textarea').forEach(element => {
+        element.addEventListener('input', function() {
+            this.style.borderColor = '#ddd';
+        });
+    });
+</script>

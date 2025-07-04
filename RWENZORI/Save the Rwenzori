@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Save the Rwenzori | Bundibugyo Conservation Project</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-mountain" style="font-size: 2rem; color: var(--primary); margin-right: 10px;"></i>
+                <h1>SAVE THE RWENZORI</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#problem">The Crisis</a></li>
+                    <li><a href="#solutions">Our Solutions</a></li>
+                    <li><a href="#impact">Impact</a></li>
+                    <li><a href="#cta">Take Action</a></li>
+                    <li><a href="#" class="donate-btn">DONATE NOW</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>EMERGENCY: SAVE THE RWENZORI MOUNTAINS</h1>
+            <p>Glaciers that have existed for 10,000 years are vanishing. Without action, Bundibugyo's rivers will dry up, landslides will destroy villages, and endangered species will vanish forever.</p>
+            
+            <div class="stats-container">
+                <div class="stat-box">
+                    <div class="stat-number">2030</div>
+                    <div>Projected year glaciers disappear</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">60%</div>
+                    <div>Glaciers lost since 1900</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">30%</div>
+                    <div>Forest cover lost since 1990</div>
+                </div>
+            </div>
+            
+            <a href="#cta" class="donate-btn">HELP SAVE THE MOUNTAINS</a>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section id="problem" class="problem">
+        <div class="container">
+            <div class="section-title">
+                <h2>The Crisis in Bundibugyo</h2>
+            </div>
+            
+            <div class="problem-content">
+                <div class="problem-text">
+                    <h3>Mountains of the Moon in Peril</h3>
+                    <p>The Rwenzori Mountains, known as the "Mountains of the Moon," are facing an unprecedented environmental crisis that threatens the very existence of this unique ecosystem and the communities that depend on it.</p>
+                    
+                    <h4>Key Threats:</h4>
+                    <ul style="margin: 20px 0 20px 30px;">
+                        <li><strong>Glacial Retreat:</strong> Over 60% of glaciers have disappeared since 1900, with complete loss projected by 2030</li>
+                        <li><strong>Landslides & Floods:</strong> Steep slopes and intense rainfall cause devastating landslides like the 2020 disaster that killed 100+ people</li>
+                        <li><strong>Deforestation:</strong> 30% forest cover loss since 1990 due to charcoal production and farmland expansion</li>
+                        <li><strong>Biodiversity Loss:</strong> Habitat destruction threatens endemic species like the Rwenzori duiker and chimpanzees</li>
+                        <li><strong>Agricultural Collapse:</strong> Coffee and cocoa crops failing due to erratic rainfall and soil erosion</li>
+                    </ul>
+                    
+                    <p>"When the glaciers vanish, our rivers will die. Our children ask why the snow is disappearing – what do we tell them?" <br><em>- Farmer in Bundibugyo</em></p>
+                </div>
+                
+                <div class="problem-image">
+                    <img src="https://images.unsplash.com/photo-1506535995048-638aa1b62b77?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Rwenzori Mountain Crisis">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solutions Section -->
+    <section id="solutions" class="solutions">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Solutions</h2>
+            </div>
+            
+            <div class="solution-cards">
+                <div class="solution-card">
+                    <div class="solution-image">
+                        <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Reforestation">
+                    </div>
+                    <div class="solution-content">
+                        <h3>Reforestation Initiative</h3>
+                        <p>Planting native trees to stabilize slopes, absorb CO₂, and restore critical habitats for endangered species.</p>
+                        <div class="cost">$5,000 for 10,000 trees</div>
+                        <p><i class="fas fa-check-circle" style="color: var(--secondary); margin-right: 5px;"></i> Impact: Restores watersheds, creates wildlife corridors</p>
+                    </div>
+                </div>
+                
+                <div class="solution-card">
+                    <div class="solution-image">
+                        <img src="https://images.unsplash.com/photo-1587049633312-d628ae50a8ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Beehive Fences">
+                    </div>
+                    <div class="solution-content">
+                        <h3>Beehive Fences</h3>
+                        <p>Installing beehive barriers to protect farms from elephants while creating sustainable honey income.</p>
+                        <div class="cost">$3,500 for 50 fences</div>
+                        <p><i class="fas fa-check-circle" style="color: var(--secondary); margin-right: 5px;"></i> Impact: Reduces human-wildlife conflict, creates new livelihoods</p>
+                    </div>
+                </div>
+                
+                <div class="solution-card">
+                    <div class="solution-image">
+                        <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Early Warning System">
+                    </div>
+                    <div class="solution-content">
+                        <h3>Landslide Early Warning System</h3>
+                        <p>Installing rain gauges and community alert systems to provide life-saving warnings before disasters strike.</p>
+                        <div class="cost">$8,000 protects 5 villages</div>
+                        <p><i class="fas fa-check-circle" style="color: var(--secondary); margin-right: 5px;"></i> Impact: Saves lives, protects homes and farmland</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section id="impact" class="impact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Impact</h2>
+            </div>
+            
+            <div class="impact-stats">
+                <div class="impact-stat">
+                    <i class="fas fa-tree"></i>
+                    <div class="number">127,000+</div>
+                    <div>Native Trees Planted</div>
+                </div>
+                
+                <div class="impact-stat">
+                    <i class="fas fa-house-damage"></i>
+                    <div class="number">42</div>
+                    <div>Landslide Warnings Issued</div>
+                </div>
+                
+                <div class="impact-stat">
+                    <i class="fas fa-hands-helping"></i>
+                    <div class="number">1,200+</div>
+                    <div>Farmers Trained</div>
+                </div>
+                
+                <div class="impact-stat">
+                    <i class="fas fa-seedling"></i>
+                    <div class="number">350</div>
+                    <div>Beehive Fences Installed</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="cta" class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Join the Fight to Save the Rwenzoris</h2>
+                <p>The glaciers won't wait. The forests won't regrow without us. Stand with the people of Bundibugyo to protect these sacred mountains for future generations.</p>
+                
+                <div class="btn-container">
+                    <a href="#" class="btn btn-primary">DONATE NOW</a>
+                    <a href="#" class="btn btn-secondary">BECOME A VOLUNTEER</a>
+                    <a href="#" class="btn btn-secondary">SHARE THE CAMPAIGN</a>
+                </div>
+                
+                <div style="margin-top: 50px; background: rgba(255,255,255,0.1); padding: 30px; border-radius: 10px; max-width: 600px; margin: 50px auto 0;">
+                    <h3 style="margin-bottom: 20px;">Your Donation Makes a Difference</h3>
+                    <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+                        <div style="margin: 10px; text-align: center;">
+                            <div style="font-size: 1.8rem; font-weight: 700;">$25</div>
+                            <div>Plants 5 trees</div>
+                        </div>
+                        <div style="margin: 10px; text-align: center;">
+                            <div style="font-size: 1.8rem; font-weight: 700;">$100</div>
+                            <div>Builds a beehive fence</div>
+                        </div>
+                        <div style="margin: 10px; text-align: center;">
+                            <div style="font-size: 1.8rem; font-weight: 700;">$500</div>
+                            <div>Installs a flood alarm</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Additional Pages Content -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Our Conservation Projects</h1>
+        </div>
+    </section>
+
+    <section class="page-content">
+        <div class="container">
+            <div class="content-block">
+                <h2>Reforestation Initiative</h2>
+                <p>Our reforestation program focuses on restoring the critical watershed areas of the Rwenzori Mountains. We work with local communities to plant native tree species that are essential for maintaining the mountain ecosystem.</p>
+                
+                <div class="image-gallery">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1504814532849-cff240bbc503?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Tree planting">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1504814532849-cff240bbc503?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Community involvement">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1504814532849-cff240bbc503?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Reforested area">
+                    </div>
+                </div>
+                
+                <h3>Program Highlights</h3>
+                <ul>
+                    <li><strong>Native Species:</strong> Planting indigenous trees that support local wildlife</li>
+                    <li><strong>Community Nurseries:</strong> Establishing 12 community-run tree nurseries</li>
+                    <li><strong>Watershed Protection:</strong> Focusing on critical river source areas</li>
+                    <li><strong>Carbon Sequestration:</strong> Each tree absorbs approximately 22 kg of CO₂ annually</li>
+                </ul>
+            </div>
+            
+            <div class="content-block">
+                <h2>Wildlife Conservation</h2>
+                <p>Protecting the unique biodiversity of the Rwenzori Mountains is central to our mission. Our wildlife conservation programs focus on preserving habitat and reducing human-wildlife conflict.</p>
+                
+                <div class="image-gallery">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1546182990-dffeafbe841d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Wildlife">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1546182990-dffeafbe841d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Elephant">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1546182990-dffeafbe841d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Chimpanzee">
+                    </div>
+                </div>
+                
+                <h3>Key Initiatives</h3>
+                <ul>
+                    <li><strong>Beehive Fences:</strong> Protecting farms from elephants without harm</li>
+                    <li><strong>Anti-Poaching Patrols:</strong> Deploying rangers to protect endangered species</li>
+                    <li><strong>Wildlife Corridors:</strong> Creating safe passages for animal movement</li>
+                    <li><strong>Camera Trapping:</strong> Monitoring wildlife populations and behavior</li>
+                </ul>
+            </div>
+            
+            <div class="content-block">
+                <h2>Our Team</h2>
+                <p>Our conservation efforts are led by a diverse team of ecologists, community organizers, and local experts dedicated to preserving the Rwenzori Mountains.</p>
+                
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Dr. Amina Nalwoga">
+                        </div>
+                        <h3>Dr. Amina Nalwoga</h3>
+                        <p>Lead Ecologist</p>
+                        <p>PhD in Conservation Biology with 15 years of experience in mountain ecosystems</p>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Robert Kato">
+                        </div>
+                        <h3>Robert Kato</h3>
+                        <p>Community Coordinator</p>
+                        <p>Born and raised in Bundibugyo, coordinates with local communities</p>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Sarah Johnson">
+                        </div>
+                        <h3>Sarah Johnson</h3>
+                        <p>International Partnerships</p>
+                        <p>Connects global resources with local conservation efforts</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-block">
+                <h2>Our Timeline</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>2015: Project Launch</h3>
+                            <p>Founded with initial funding from WWF and local government partners</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>2017: First Reforestation</h3>
+                            <p>Planted 25,000 native trees in critical watershed areas</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>2019: Early Warning System</h3>
+                            <p>Installed landslide detection system protecting 3 villages</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>2021: Beehive Fence Program</h3>
+                            <p>Implemented 200 beehive fences reducing human-elephant conflict by 75%</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>2023: UNESCO Recognition</h3>
+                            <p>Designated as a critical conservation zone by UNESCO</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>2025: 100K Trees Milestone</h3>
+                            <p>Celebrated planting our 100,000th native tree</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>SAVE THE RWENZORI</h3>
+                    <p>Working with communities in Bundibugyo to protect the Rwenzori Mountains through conservation, sustainable development, and climate resilience.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#problem">The Crisis</a></li>
+                        <li><a href="#solutions">Our Solutions</a></li>
+                        <li><a href="#impact">Impact</a></li>
+                        <li><a href="#cta">Take Action</a></li>
+                        <li><a href="#">Partners</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Our Partners</h3>
+                    <ul>
+                        <li>Uganda National Forestry Authority</li>
+                        <li>WWF Uganda</li>
+                        <li>Rwenzori Mountaineering Services</li>
+                        <li>ACCA Africa</li>
+                        <li>UNDP Uganda</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt" style="margin-right: 10px;"></i> Bundibugyo, Western Uganda</li>
+                        <li><i class="fas fa-envelope" style="margin-right: 10px;"></i> info@savetherwenzori.org</li>
+                        <li><i class="fas fa-phone" style="margin-right: 10px;"></i> +256 772676944</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Save the Rwenzori Conservation Project. All rights reserved.</p>
+                
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

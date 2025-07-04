@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Share Campaign - Save the Rwenzori Mountains</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0d3b0d 0%, #1a5d1a 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #333;
+        }
+
+        .share-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .share-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, #2ecc71, #3498db, #9b59b6, #e74c3c);
+        }
+
+        .header {
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .header i {
+            font-size: 2.8rem;
+            color: #3498db;
+        }
+
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .campaign-stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            flex: 1;
+            min-width: 150px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-value {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: #7f8c8d;
+        }
+
+        .link-container {
+            display: flex;
+            margin: 30px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        #campaignLink {
+            flex: 1;
+            padding: 18px 20px;
+            border: none;
+            background: #f8f9fa;
+            font-size: 1.1rem;
+            color: #2c3e50;
+            border-radius: 12px 0 0 12px;
+            outline: none;
+        }
+
+        .copy-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 0 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #2980b9;
+        }
+
+        .copy-btn:active {
+            transform: scale(0.98);
+        }
+
+        #copyMessage {
+            display: block;
+            margin-top: 10px;
+            font-size: 1rem;
+            height: 24px;
+            color: #27ae60;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .share-section {
+            margin: 40px 0;
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #2ecc71, #3498db);
+            border-radius: 2px;
+        }
+
+        .share-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .share-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 200px;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .share-btn i {
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+
+        .share-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .share-btn:active {
+            transform: translateY(-2px);
+        }
+
+        #facebookShare {
+            background: linear-gradient(135deg, #3b5998, #4a69a5);
+        }
+
+        #twitterShare {
+            background: linear-gradient(135deg, #1da1f2, #2aa9e0);
+        }
+
+        #instagramShare {
+            background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+        }
+
+        #whatsappShare {
+            background: linear-gradient(135deg, #25d366, #128c7e);
+        }
+
+        #linkedinShare {
+            background: linear-gradient(135deg, #0077b5, #00a0dc);
+        }
+
+        #emailShare {
+            background: linear-gradient(135deg, #d44638, #e74c3c);
+        }
+
+        .campaign-info {
+            background: #e3f2fd;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .campaign-info h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .campaign-info h3 i {
+            color: #3498db;
+        }
+
+        .campaign-info p {
+            color: #34495e;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .campaign-info ul {
+            padding-left: 20px;
+            margin: 15px 0;
+        }
+
+        .campaign-info li {
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .impact-section {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .impact-card {
+            flex: 1;
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .impact-card h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .impact-card h4 i {
+            color: #27ae60;
+        }
+
+        .footer-note {
+            margin-top: 40px;
+            color: #7f8c8d;
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+
+        .social-proof {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+
+        .testimonials {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding: 10px 0;
+            scroll-snap-type: x mandatory;
+        }
+
+        .testimonial {
+            min-width: 300px;
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            scroll-snap-align: start;
+        }
+
+        .testimonial-content {
+            font-style: italic;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: #3498db;
+        }
+
+        @media (max-width: 768px) {
+            .share-container {
+                padding: 30px 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .link-container {
+                flex-direction: column;
+            }
+            
+            #campaignLink {
+                border-radius: 12px 12px 0 0;
+                padding: 15px;
+            }
+            
+            .copy-btn {
+                padding: 15px;
+                border-radius: 0 0 12px 12px;
+                justify-content: center;
+            }
+            
+            .share-btn {
+                width: 100%;
+            }
+            
+            .impact-section {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="share-container">
+        <div class="header">
+            <h1><i class="fas fa-mountain"></i> Share Our Campaign</h1>
+            <p>Help us protect the Rwenzori Mountains - a UNESCO World Heritage site. Your share can make a difference in preserving this unique ecosystem for future generations.</p>
+        </div>
+        
+        <div class="campaign-stats">
+            <div class="stat-card">
+                <div class="stat-value">1,200+</div>
+                <div class="stat-label">Supporters</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">$85,000</div>
+                <div class="stat-label">Raised</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">127,000</div>
+                <div class="stat-label">Trees Planted</div>
+            </div>
+        </div>
+        
+        <div class="link-container">
+            <input type="text" id="campaignLink" value="https://savetherwenzori.org/donate" readonly>
+            <button class="copy-btn" id="copyButton">
+                <i class="fas fa-copy"></i> Copy Link
+            </button>
+        </div>
+        <span id="copyMessage"></span>
+        
+        <div class="share-section">
+            <h2 class="section-title">Spread the Word</h2>
+            <p>Share our campaign with your friends, family, and colleagues to help us reach more supporters.</p>
+            
+            <div class="share-buttons">
+                <a href="#" id="facebookShare" class="share-btn">
+                    <i class="fab fa-facebook-f"></i> Facebook
+                </a>
+                <a href="#" id="twitterShare" class="share-btn">
+                    <i class="fab fa-twitter"></i> Twitter
+                </a>
+                <a href="#" id="instagramShare" class="share-btn">
+                    <i class="fab fa-instagram"></i> Instagram
+                </a>
+                <a href="#" id="whatsappShare" class="share-btn">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
+                </a>
+                <a href="#" id="linkedinShare" class="share-btn">
+                    <i class="fab fa-linkedin-in"></i> LinkedIn
+                </a>
+                <a href="#" id="emailShare" class="share-btn">
+                    <i class="fas fa-envelope"></i> Email
+                </a>
+            </div>
+        </div>
+        
+        <div class="social-proof">
+            <h3>What People Are Saying</h3>
+            <div class="testimonials">
+                <div class="testimonial">
+                    <p class="testimonial-content">"The Rwenzori Mountains are a treasure that must be protected. I'm proud to support this important conservation work."</p>
+                    <p class="testimonial-author">- Dr. Amina Nalwoga, Environmental Scientist</p>
+                </div>
+                <div class="testimonial">
+                    <p class="testimonial-content">"As a local guide, I've seen firsthand how climate change is affecting our mountains. This campaign gives me hope."</p>
+                    <p class="testimonial-author">- Robert Kato, Mountain Guide</p>
+                </div>
+                <div class="testimonial">
+                    <p class="testimonial-content">"The reforestation projects have already made a visible difference in our community. Thank you for your support!"</p>
+                    <p class="testimonial-author">- Jane Kabugho, Community Leader</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="campaign-info">
+            <h3><i class="fas fa-info-circle"></i> About the Rwenzori Mountains</h3>
+            <p>The Rwenzori Mountains, also known as the "Mountains of the Moon", are located on the border between Uganda and the Democratic Republic of the Congo. This unique ecosystem is home to:</p>
+            <ul>
+                <li>Africa's third highest mountain peak (Margherita Peak at 5,109m)</li>
+                <li>Rare and endangered species like the Rwenzori leopard and duiker</li>
+                <li>Unique vegetation zones including tropical rainforest and alpine meadows</li>
+                <li>Vital water source for millions of people in the region</li>
+                <li>Glaciers that have existed for thousands of years (but are rapidly disappearing)</li>
+            </ul>
+            
+            <div class="impact-section">
+                <div class="impact-card">
+                    <h4><i class="fas fa-tree"></i> Our Impact</h4>
+                    <p>Since 2015, our conservation efforts have:</p>
+                    <ul>
+                        <li>Planted over 127,000 native trees</li>
+                        <li>Trained 1,200+ farmers in sustainable agriculture</li>
+                        <li>Installed 42 landslide warning systems</li>
+                        <li>Protected 350+ acres of critical habitat</li>
+                    </ul>
+                </div>
+                <div class="impact-card">
+                    <h4><i class="fas fa-hands-helping"></i> How You Can Help</h4>
+                    <p>Your support makes our work possible:</p>
+                    <ul>
+                        <li>$25 plants 5 native trees</li>
+                        <li>$100 builds a beehive fence</li>
+                        <li>$500 installs a flood alarm</li>
+                        <li>$1,000 trains a community conservation scout</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <p class="footer-note">Together, we can preserve the Rwenzori Mountains for future generations. Thank you for your support!</p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const campaignLink = document.getElementById('campaignLink');
+            const copyButton = document.getElementById('copyButton');
+            const copyMessage = document.getElementById('copyMessage');
+            
+            // Social share buttons
+            const facebookShare = document.getElementById('facebookShare');
+            const twitterShare = document.getElementById('twitterShare');
+            const instagramShare = document.getElementById('instagramShare');
+            const whatsappShare = document.getElementById('whatsappShare');
+            const linkedinShare = document.getElementById('linkedinShare');
+            const emailShare = document.getElementById('emailShare');
+            
+            const url = encodeURIComponent(campaignLink.value);
+            const text = encodeURIComponent("Join me in supporting the Save the Rwenzori campaign! This unique ecosystem needs our help to combat climate change and protect endangered species.");
+            const hashtags = encodeURIComponent("SaveRwenzori,ClimateAction,Conservation");
+            
+            // Set up share URLs
+            facebookShare.href = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+            twitterShare.href = `https://twitter.com/intent/tweet?text=${text}&url=${url}&hashtags=${hashtags}`;
+            instagramShare.href = `https://www.instagram.com/?url=${url}`;
+            whatsappShare.href = `https://api.whatsapp.com/send?text=${text} ${url}`;
+            linkedinShare.href = `https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=Save%20the%20Rwenzori&summary=${text}`;
+            emailShare.href = `mailto:?subject=Help%20Save%20the%20Rwenzori%20Mountains&body=${text}%0A%0A${url}`;
+            
+            // Copy link functionality
+            copyButton.addEventListener('click', function() {
+                campaignLink.select();
+                document.execCommand('copy');
+                
+                copyMessage.textContent = "Link copied to clipboard!";
+                copyMessage.style.opacity = "1";
+                
+                setTimeout(() => {
+                    copyMessage.style.opacity = "0";
+                }, 2000);
+            });
+            
+            // Open share links in new windows
+            document.querySelectorAll('.share-btn').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    if (this.id !== 'emailShare') {
+                        e.preventDefault();
+                        window.open(this.href, 'Share', 'width=600,height=400');
+                    }
+                });
+            });
+            
+            // Animate stats counting
+            const statValues = document.querySelectorAll('.stat-value');
+            const targetValues = [1250, 85000, 127000];
+            const durations = [2000, 2500, 3000];
+            
+            statValues.forEach((stat, index) => {
+                const target = targetValues[index];
+                const duration = durations[index];
+                const start = 0;
+                const increment = target / (duration / 16);
+                let current = start;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        clearInterval(timer);
+                        current = target;
+                    }
+                    
+                    if (index === 1) { // For currency
+                        stat.textContent = '$' + Math.floor(current).toLocaleString();
+                    } else {
+                        stat.textContent = Math.floor(current).toLocaleString();
+                    }
+                }, 16);
+            });
+        });
+    </script>
+</body>
+</html>

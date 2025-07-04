@@ -1,0 +1,45 @@
+.donation-form {
+    max-width: 400px;
+    margin: 30px auto;
+    padding: 20px;
+    background: #f4f9f4;
+    border-left: 5px solid #2a5d34;
+  }
+  
+  .donation-form h2 {
+    color: #2a5d34;
+  }
+  
+  .donation-form label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+  }
+  
+  .donation-form input, .donation-form textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    box-sizing: border-box;
+  }
+  
+  .donation-form button {
+    margin-top: 20px;
+    background: #2a5d34;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .donation-form button:hover {
+    background: #1e4224;
+  }
+  
+  .success {
+    margin-top: 20px;
+    font-weight: bold;
+    color: green;
+  }
+  

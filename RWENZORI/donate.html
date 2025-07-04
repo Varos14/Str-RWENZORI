@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate to Save the Rwenzori | Bundibugyo Community Initiative</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(90deg, #2c3e50, #3498db);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        .firebase-status {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            align-items: center;
+            font-size: 0.8rem;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+        
+        .firebase-status .indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+        
+        .firebase-status .connected {
+            background-color: #2ecc71;
+        }
+        
+        .firebase-status .disconnected {
+            background-color: #e74c3c;
+        }
+        
+        /* Progress tracker styles */
+        .progress-tracker {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 25px 0 10px;
+        }
+        
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .progress-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+        
+        .progress-bar-container {
+            height: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #2ecc71, #27ae60);
+            border-radius: 10px;
+            width: 0;
+            transition: width 1s ease;
+        }
+        
+        .progress-text {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        .progress-goal {
+            text-align: right;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+        
+        .form-container {
+            padding: 30px;
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+        }
+        
+        .form-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="number"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="number"]:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .amount-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 12px;
+            margin-top: 10px;
+        }
+        
+        .amount-option {
+            background: #ecf0f1;
+            border: 2px solid #bdc3c7;
+            border-radius: 8px;
+            padding: 12px 5px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .amount-option:hover {
+            background: #d6dbdf;
+        }
+        
+        .amount-option.active {
+            background: #3498db;
+            color: white;
+            border-color: #2980b9;
+        }
+        
+        .payment-methods {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .method {
+            flex: 1;
+            min-width: 120px;
+            background: #ecf0f1;
+            border: 2px solid #bdc3c7;
+            border-radius: 8px;
+            padding: 20px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .method:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .method.selected {
+            background: #3498db;
+            color: white;
+            border-color: #2980b9;
+        }
+        
+        .method i {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .payment-instructions {
+            background: #e3f2fd;
+            border-left: 4px solid #3498db;
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .payment-instructions.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .payment-instructions h3 {
+            color: #2980b9;
+            margin-bottom: 10px;
+        }
+        
+        .payment-instructions p {
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .btn-submit {
+            background: linear-gradient(90deg, #27ae60, #2ecc71);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 16px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-submit:active {
+            transform: translateY(1px);
+        }
+        
+        .message-box {
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        .message-box.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+        
+        .message-box.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+        
+        .message-box.info {
+            background: #cce5ff;
+            color: #004085;
+            border: 1px solid #b8daff;
+            display: block;
+        }
+        
+        .custom-amount {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .currency-symbol {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        .stripe-container {
+            display: none;
+            padding: 20px;
+            background: #f5f9fc;
+            border-radius: 10px;
+            margin-top: 20px;
+            border: 1px solid #e1e8ed;
+        }
+        
+        .stripe-container.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        .stripe-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .stripe-row {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .stripe-row > div {
+            flex: 1;
+        }
+        
+        #card-element {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: white;
+        }
+        
+        #card-errors {
+            color: #e53935;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            min-height: 20px;
+        }
+        
+        .stripe-btn {
+            background: linear-gradient(90deg, #6772e5, #5469d4);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 15px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .stripe-btn:hover {
+            background: linear-gradient(90deg, #5469d4, #4257b2);
+        }
+        
+        .firebase-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e8f4f8;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .firebase-info h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .firebase-info p {
+            line-height: 1.5;
+            color: #2c3e50;
+        }
+        
+        @media (max-width: 600px) {
+            .payment-methods {
+                flex-direction: column;
+            }
+            
+            .amount-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .form-container {
+                padding: 20px;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .stripe-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="firebase-status" id="firebaseStatus">
+                <div class="indicator disconnected" id="firebaseIndicator"></div>
+                <span id="firebaseStatusText">Firebase: Disconnected</span>
+            </div>
+            <h1>Save the Rwenzori Mountains</h1>
+            <p>Your donation helps protect this unique ecosystem and supports Bundibugyo communities</p>
+            
+            <!-- Progress Tracker -->
+            <div class="progress-tracker">
+                <div class="progress-header">
+                    <h3>Donation Progress</h3>
+                </div>
+                <div class="progress-stats">
+                    <span>Raised: <strong id="raisedAmount">$0</strong></span>
+                    <span>Goal: <strong>$10,000</strong></span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progressBar"></div>
+                    <div class="progress-text" id="progressText">0%</div>
+                </div>
+                <div class="progress-goal">Help us reach our goal to protect the Rwenzori!</div>
+            </div>
+        </header>
+        
+        <div class="form-container">
+            <form id="donationForm">
+                <div class="form-section">
+                    <h2>Your Information</h2>
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" placeholder="Enter your full name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" placeholder="Enter your email" required>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h2>Donation Amount</h2>
+                    <div class="form-group">
+                        <label>Select or enter an amount *</label>
+                        <div class="amount-options">
+                            <div class="amount-option" data-amount="25">$25</div>
+                            <div class="amount-option" data-amount="50">$50</div>
+                            <div class="amount-option" data-amount="100">$100</div>
+                            <div class="amount-option" data-amount="250">$250</div>
+                            <div class="amount-option" data-amount="500">$500</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="amount">Custom Amount *</label>
+                        <div class="custom-amount">
+                            <span class="currency-symbol">$</span>
+                            <input type="number" id="amount" min="1" step="1" placeholder="Enter amount" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h2>Payment Method</h2>
+                    <div class="payment-methods">
+                        <div class="method" data-method="card">
+                            <i class="far fa-credit-card"></i>
+                            Credit/Debit Card
+                        </div>
+                        <div class="method" data-method="paypal">
+                            <i class="fab fa-paypal"></i>
+                            PayPal
+                        </div>
+                        <div class="method" data-method="bank">
+                            <i class="fas fa-university"></i>
+                            Bank Transfer
+                        </div>
+                        <div class="method" data-method="mobile">
+                            <i class="fas fa-mobile-alt"></i>
+                            Mobile Money
+                        </div>
+                    </div>
+                    
+                    <!-- Stripe Card Element -->
+                    <div class="stripe-container" id="stripeContainer">
+                        <div class="stripe-form">
+                            <div id="card-element"></div>
+                            <div id="card-errors" role="alert"></div>
+                            <div class="stripe-row">
+                                <div>
+                                    <label>Cardholder Name</label>
+                                    <input type="text" id="cardholder-name" placeholder="Name on card">
+                                </div>
+                                <div>
+                                    <label>Email</label>
+                                    <input type="email" id="cardholder-email" placeholder="Your email">
+                                </div>
+                            </div>
+                            <button type="button" class="stripe-btn" id="card-button">
+                                <i class="fas fa-lock"></i> Pay Securely
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Payment Instructions -->
+                    <div class="payment-instructions" data-method="paypal">
+                        <h3>PayPal Instructions</h3>
+                        <p>Click the "Donate Now" button below to complete your payment through PayPal.</p>
+                        <p>You will be redirected to the PayPal website to complete your transaction securely.</p>
+                    </div>
+                    
+                    <div class="payment-instructions" data-method="bank">
+                        <h3>Bank Transfer Details</h3>
+                        <p>Please transfer your donation to the following account:</p>
+                        <p><strong>Bank:</strong> Centenary Bank, Bundibugyo Branch<br>
+                        <strong>Account Name:</strong> Save the Rwenzori CBO<br>
+                        <strong>Account Number:</strong> 3100300504<br>
+                        <strong>SWIFT Code:</strong> CERBUGKA</p>
+                        <p>Please include your name as reference.</p>
+                    </div>
+                    
+                    <div class="payment-instructions" data-method="mobile">
+                        <h3>Mobile Money Instructions</h3>
+                        <p>Send your donation via mobile money to:</p>
+                        <p><strong>Network:</strong> MTN Uganda<br>
+                        <strong>Number:</strong> +256 772 676944<br>
+                        <strong>Name:</strong> Save the Rwenzori CBO</p>
+                        <p>Please include your name in the reference.</p>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn-submit">Donate Now</button>
+                
+                <div id="donationMessage" class="message-box"></div>
+            </form>
+        </div>
+        
+        <div class="footer">
+            <p>Save the Rwenzori CBO is a registered community organization in Bundibugyo District (BD/CBO/2023/0456)</p>
+            <p><i class="fas fa-lock"></i> All transactions are secure and encrypted</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Firebase configuration
+            const firebaseConfig = {
+                apiKey: "AIzaSyAFY9bcLKVCZbJQ50NuXmUNuWonWaMRXPc",
+                authDomain: "savetherwenzori-48d45.firebaseapp.com",
+                projectId: "savetherwenzori-48d45",
+                storageBucket: "savetherwenzori-48d45.appspot.com",
+                messagingSenderId: "147866594608",
+                appId: "1:147866594608:web:7b838d12162d3370556cf5",
+                measurementId: "G-9HB9QS5Q1F"
+            };
+            
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            const db = firebase.firestore();
+            
+            // Firebase status elements
+            const firebaseStatus = document.getElementById('firebaseStatus');
+            const firebaseIndicator = document.getElementById('firebaseIndicator');
+            const firebaseStatusText = document.getElementById('firebaseStatusText');
+            
+            // Update Firebase connection status
+            firebase.firestore().enableNetwork()
+                .then(() => {
+                    firebaseIndicator.className = "indicator connected";
+                    firebaseStatusText.textContent = "Firebase: Connected";
+                })
+                .catch((error) => {
+                    console.error("Firebase connection error:", error);
+                    firebaseIndicator.className = "indicator disconnected";
+                    firebaseStatusText.textContent = "Firebase: Disconnected";
+                });
+            
+            // Form elements
+            const form = document.getElementById('donationForm');
+            const messageBox = document.getElementById('donationMessage');
+            const amountInput = document.getElementById('amount');
+            const amountOptions = document.querySelectorAll('.amount-option');
+            const paymentMethods = document.querySelectorAll('.method');
+            const paymentInstructions = document.querySelectorAll('.payment-instructions');
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const stripeContainer = document.getElementById('stripeContainer');
+            const cardholderName = document.getElementById('cardholder-name');
+            const cardholderEmail = document.getElementById('cardholder-email');
+            const cardButton = document.getElementById('card-button');
+            
+            // Donation progress elements
+            const raisedAmountElement = document.getElementById('raisedAmount');
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+            const goalAmount = 10000; // $10,000 goal
+            
+            // Initialize Stripe with your publishable key
+            const stripe = Stripe('pk_test_51PDX9hKjKqg8Gf7DcVW0sCJ0zFJZ9aYJ0rB2vXp0y2t6Y2X6s2q7tQ0dW4jz2o0d4Q1jZ3Kj5w7a5s9u7sF0z');
+            const elements = stripe.elements();
+            const cardElement = elements.create('card', {
+                style: {
+                    base: {
+                        fontSize: '16px',
+                        color: '#32325d',
+                        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+                        '::placeholder': {
+                            color: '#aab7c4'
+                        }
+                    }
+                }
+            });
+            
+            cardElement.mount('#card-element');
+            
+            // Handle card validation errors
+            cardElement.addEventListener('change', (event) => {
+                const displayError = document.getElementById('card-errors');
+                if (event.error) {
+                    displayError.textContent = event.error.message;
+                } else {
+                    displayError.textContent = '';
+                }
+            });
+            
+            // Handle Payment Method Selection
+            paymentMethods.forEach(method => {
+                method.addEventListener('click', () => {
+                    paymentMethods.forEach(m => m.classList.remove('selected'));
+                    method.classList.add('selected');
+                    
+                    const selectedMethod = method.dataset.method;
+                    showInstructions(selectedMethod);
+                    
+                    // Show/hide Stripe container
+                    if (selectedMethod === 'card') {
+                        stripeContainer.classList.add('active');
+                    } else {
+                        stripeContainer.classList.remove('active');
+                    }
+                });
+            });
+
+            // Handle Amount Option Selection
+            amountOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    amountOptions.forEach(o => o.classList.remove('active'));
+                    option.classList.add('active');
+                    
+                    const value = option.dataset.amount;
+                    amountInput.value = value;
+                });
+            });
+
+            // Handle custom amount input changes
+            amountInput.addEventListener('input', () => {
+                // When user types a custom amount, remove active class from preset buttons
+                amountOptions.forEach(o => o.classList.remove('active'));
+                
+                // Validate amount is positive
+                if (parseFloat(amountInput.value) <= 0) {
+                    amountInput.setCustomValidity("Amount must be greater than 0");
+                } else {
+                    amountInput.setCustomValidity("");
+                }
+            });
+
+            // Save donation record to Firebase
+            async function saveDonationRecord(donationData) {
+                try {
+                    // Add a new document with a generated id
+                    const docRef = await db.collection("donations").add({
+                        name: donationData.name,
+                        email: donationData.email,
+                        amount: donationData.amount,
+                        method: donationData.method,
+                        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                        status: donationData.status || "completed",
+                        ...(donationData.stripeId && { stripeId: donationData.stripeId })
+                    });
+                    
+                    console.log("Donation record saved with ID: ", docRef.id);
+                    return docRef.id;
+                } catch (error) {
+                    console.error("Error saving donation record: ", error);
+                    throw error;
+                }
+            }
+
+            // Update donation progress
+            function updateProgress() {
+                // Listen for donations in real-time
+                db.collection("donations").onSnapshot((snapshot) => {
+                    let total = 0;
+                    snapshot.forEach((doc) => {
+                        const donation = doc.data();
+                        if (donation.status === "completed") {
+                            total += parseFloat(donation.amount);
+                        }
+                    });
+                    
+                    // Update UI
+                    raisedAmountElement.textContent = `$${total.toFixed(2)}`;
+                    const percentage = Math.min(100, (total / goalAmount) * 100);
+                    progressBar.style.width = `${percentage}%`;
+                    progressText.textContent = `${Math.round(percentage)}%`;
+                });
+            }
+            
+            // Initialize progress tracker
+            updateProgress();
+
+            // Handle Card Payment Button Click
+            cardButton.addEventListener('click', async () => {
+                const name = nameInput.value.trim();
+                const email = emailInput.value.trim();
+                const amount = parseFloat(amountInput.value);
+                const cardName = cardholderName.value.trim() || name;
+                const cardEmail = cardholderEmail.value.trim() || email;
+                
+                if (!name) {
+                    showMessage("Please enter your name.", "error");
+                    nameInput.focus();
+                    return;
+                }
+                
+                if (!email || !validateEmail(email)) {
+                    showMessage("Please enter a valid email address.", "error");
+                    emailInput.focus();
+                    return;
+                }
+                
+                if (isNaN(amount) || amount <= 0) {
+                    showMessage("Please enter a valid donation amount.", "error");
+                    amountInput.focus();
+                    return;
+                }
+                
+                // Show processing message
+                showMessage("Processing your payment...", "info");
+                
+                try {
+                    // Create payment intent (in a real app, this would call your backend)
+                    const paymentResult = await processStripePayment({
+                        name: cardName,
+                        email: cardEmail,
+                        amount: amount * 100 // Convert to cents
+                    });
+                    
+                    if (paymentResult.success) {
+                        // Save to Firebase
+                        const donationData = {
+                            name,
+                            email,
+                            amount,
+                            method: "card",
+                            stripeId: paymentResult.paymentIntentId
+                        };
+                        
+                        const docId = await saveDonationRecord(donationData);
+                        
+                        showMessage(`Thank you, ${name}! Your card payment of $${amount.toFixed(2)} was successful.`, "success");
+                    } else {
+                        showMessage(`Payment failed: ${paymentResult.error}`, "error");
+                    }
+                } catch (error) {
+                    console.error("Payment error:", error);
+                    showMessage("There was an error processing your payment. Please try again.", "error");
+                }
+            });
+
+            // Simulate Stripe payment processing
+            async function processStripePayment(paymentData) {
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        // Simulate successful payment 90% of the time
+                        if (Math.random() > 0.1) {
+                            resolve({
+                                success: true,
+                                paymentIntentId: `pi_${Math.random().toString(36).substr(2, 14)}`
+                            });
+                        } else {
+                            resolve({
+                                success: false,
+                                error: "Card declined. Please try another payment method."
+                            });
+                        }
+                    }, 2000);
+                });
+            }
+
+            // Handle Form Submission for other payment methods
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                // Reset message box
+                messageBox.className = "message-box";
+                messageBox.style.display = "none";
+                
+                const name = nameInput.value.trim();
+                const email = emailInput.value.trim();
+                const amount = parseFloat(amountInput.value);
+                const selectedMethodEl = document.querySelector('.method.selected');
+                const paymentMethod = selectedMethodEl ? selectedMethodEl.dataset.method : null;
+                
+                // Enhanced validation
+                if (!name) {
+                    showMessage("Please enter your name.", "error");
+                    nameInput.focus();
+                    return;
+                }
+                
+                if (!email || !validateEmail(email)) {
+                    showMessage("Please enter a valid email address.", "error");
+                    emailInput.focus();
+                    return;
+                }
+                
+                if (isNaN(amount)) {
+                    showMessage("Please enter a valid donation amount.", "error");
+                    amountInput.focus();
+                    return;
+                }
+                
+                if (amount <= 0) {
+                    showMessage("Donation amount must be greater than 0.", "error");
+                    amountInput.focus();
+                    return;
+                }
+                
+                if (!paymentMethod) {
+                    showMessage("Please select a payment method.", "error");
+                    return;
+                }
+                
+                // Skip form submission for card payments (handled separately)
+                if (paymentMethod === 'card') {
+                    showMessage("Please use the 'Pay Securely' button for card payments.", "info");
+                    return;
+                }
+                
+                // Show processing message
+                showMessage("Processing your donation...", "info");
+                
+                try {
+                    // Build donation data
+                    const donationData = {
+                        name,
+                        email,
+                        amount,
+                        method: paymentMethod,
+                        status: paymentMethod === 'paypal' ? 'pending' : 'completed'
+                    };
+                    
+                    // Save to Firebase
+                    const docId = await saveDonationRecord(donationData);
+                    
+                    // Build and show success message
+                    let successMessage = `Thank you, ${name}! Your donation of $${amount.toFixed(2)} has been received.`;
+                    
+                    if (paymentMethod === 'paypal') {
+                        successMessage += " You will be redirected to PayPal to complete your payment.";
+                        setTimeout(() => {
+                            window.open('https://www.paypal.com/donate', '_blank');
+                        }, 2000);
+                    }
+                    
+                    showMessage(successMessage, "success");
+                    
+                    // Reset form after 5 seconds
+                    setTimeout(() => {
+                        form.reset();
+                        amountOptions.forEach(o => o.classList.remove('active'));
+                        paymentMethods.forEach(m => m.classList.remove('selected'));
+                        paymentInstructions.forEach(instr => instr.classList.remove('active'));
+                        stripeContainer.classList.remove('active');
+                        messageBox.className = "message-box";
+                        messageBox.style.display = "none";
+                    }, 5000);
+                } catch (error) {
+                    console.error("Donation error:", error);
+                    showMessage("There was an error processing your donation. Please try again.", "error");
+                }
+            });
+
+            // Show Payment Instructions
+            function showInstructions(method) {
+                paymentInstructions.forEach(instr => {
+                    instr.classList.remove('active');
+                    if (instr.dataset.method === method) {
+                        instr.classList.add('active');
+                    }
+                });
+            }
+
+            // Message Box Handling
+            function showMessage(message, type = 'success') {
+                messageBox.textContent = message;
+                messageBox.className = `message-box ${type}`;
+                messageBox.style.display = "block";
+                
+                // Scroll to message
+                messageBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            
+            // Email validation function
+            function validateEmail(email) {
+                const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                return re.test(String(email).toLowerCase());
+            }
+        });
+    </script>
+</body>
+</html>

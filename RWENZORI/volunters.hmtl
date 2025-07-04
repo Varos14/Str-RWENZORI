@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Volunteer Registration - Save the Rwenzoris</title>
+<style>
+  body { font-family: Arial, sans-serif; max-width: 400px; margin: 30px auto; padding: 20px; background: #f4f9f4; }
+  h2 { color: #2a5d34; }
+  label { display: block; margin-top: 15px; font-weight: bold; }
+  input, select, textarea { width: 100%; padding: 8px; margin-top: 5px; box-sizing: border-box; }
+  button { margin-top: 20px; background: #2a5d34; color: white; padding: 10px; border: none; cursor: pointer; width: 100%; }
+  button:hover { background: #1e4224; }
+  .success { margin-top: 20px; color: green; font-weight: bold; }
+  .error { color: red; font-size: 0.9em; margin-top: 5px; }
+</style>
+</head>
+<body>
+
+<h2>Volunteer Registration</h2>
+
+<form id="volunteerForm" novalidate>
+  <label for="fullName">Full Name *</label>
+  <input type="text" id="fullName" name="fullName" required />
+  <div id="nameError" class="error"></div>
+
+  <label for="email">Email Address *</label>
+  <input type="email" id="email" name="email" required />
+  <div id="emailError" class="error"></div>
+
+  <label for="phone">Phone Number</label>
+  <input type="tel" id="phone" name="phone" placeholder="+256..." />
+
+  <label for="location">Location *</label>
+  <input type="text" id="location" name="location" placeholder="Bundibugyo or nearby" required />
+  <div id="locationError" class="error"></div>
+
+  <label for="skills">Skills / Interests</label>
+  <textarea id="skills" name="skills" rows="3" placeholder="e.g., tree planting, community outreach"></textarea>
+
+  <label for="availability">Availability *</label>
+  <select id="availability" name="availability" required>
+    <option value="">-- Select --</option>
+    <option value="weekdays">Weekdays</option>
+    <option value="weekends">Weekends</option>
+    <option value="both">Both</option>
+  </select>
+  <div id="availabilityError" class="error"></div>
+
+  <button type="submit">Register as Volunteer</button>
+</form>
+
+<div id="responseMessage" class="success"></div>
+
+<script>
+  const form = document.getElementById('volunteerForm');
+  const responseMessage = document.getElementById('responseMessage');
+
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+    // Clear previous errors and response
+    responseMessage.textContent = '';
+    ['nameError', 'emailError', 'locationError', 'availabilityError'].forEach(id => {
+      document.getElementById(id).textContent = '';
+    });
+
+    // Get form values
+    const fullName = form.fullName.value.trim();
+    const email = form.email.value.trim();
+    const phone = form.phone.value.trim();
+    const location = form.location.value.trim();
+    const skills = form.skills.value.trim();
+    const availability = form.availability.value;
+
+    // Validate inputs
+    let valid = true;
+
+    if (fullName.length < 2) {
+      document.getElementById('nameError').textContent = 'Please enter your full name.';
+      valid = false;
+    }
+
+    if (!validateEmail(email)) {
+      document.getElementById('emailError').textContent = 'Please enter a valid email address.';
+      valid = false;
+    }
+
+    if (location.length < 2) {
+      document.getElementById('locationError').textContent = 'Please enter your location.';
+      valid = false;
+    }
+
+    if (!availability) {
+      document.getElementById('availabilityError').textContent = 'Please select your availability.';
+      valid = false;
+    }
+
+    if (!valid) return;
+
+    // Here: You can send data to server or an API
+    // For demo, we just show a success message and clear form
+
+    responseMessage.textContent = `Thank you, ${fullName}! Your volunteer registration has been received. We will contact you soon.`;
+
+    form.reset();
+
+    // Optional: store data locally (for demo)
+    // let volunteers = JSON.parse(localStorage.getItem('volunteers') || '[]');
+    // volunteers.push({fullName, email, phone, location, skills, availability, date: new Date()});
+    // localStorage.setItem('volunteers', JSON.stringify(volunteers));
+  });
+
+  function validateEmail(email) {
+    // Basic email pattern
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+</script>
+
+</body>
+</html>
